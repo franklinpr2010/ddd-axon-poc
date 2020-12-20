@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.queryhandling.QueryHandler;
+import org.springframework.stereotype.Component;
 
 import br.com.compasso.entity.Cidade;
 import br.com.compasso.event.CidadeCriadoEvent;
@@ -13,6 +14,7 @@ import br.com.compasso.query.BuscarCidadePorEstadoQuery;
 import br.com.compasso.query.BuscarCidadePorNomeQuery;
 import br.com.compasso.repositories.CidadeRepository;
 
+@Component
 public class CidadeProjection {
 
 	private CidadeRepository repository;

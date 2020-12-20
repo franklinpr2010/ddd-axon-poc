@@ -9,6 +9,9 @@ public class BuscarCidadePorEstadoQuery {
 	public BuscarCidadePorEstadoQuery(EstadoEnum estadoEnum) {
 		this.setEstadoEnum(estadoEnum);
 	}
+	
+	public BuscarCidadePorEstadoQuery() {
+	}
 
 	public EstadoEnum getEstadoEnum() {
 		return estadoEnum;

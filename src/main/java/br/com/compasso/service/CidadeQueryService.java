@@ -39,9 +39,9 @@ public class CidadeQueryService {
         );
     }
     
-    public CompletableFuture<Cidade> findByCodigoEstado(int estado) {
+    public CompletableFuture<Cidade> findByEstado(EstadoEnum estado) {
         return this.queryGateway.query(
-                new BuscarCidadePorEstadoQuery(EstadoEnum.valueOf(estado).get()),
+                new BuscarCidadePorEstadoQuery(estado),
                 ResponseTypes.instanceOf(Cidade.class)
         );
     }

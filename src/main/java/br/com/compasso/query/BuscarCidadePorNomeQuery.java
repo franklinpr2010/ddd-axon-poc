@@ -8,6 +8,10 @@ public class BuscarCidadePorNomeQuery {
 		this.nome = nome;
 	}
 	
+	public BuscarCidadePorNomeQuery() {
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}

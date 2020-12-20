@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,10 @@ import br.com.compasso.enums.SexoEnum;
  * @author franklin.roza
  *
  */
+@org.hibernate.annotations.GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
+)
 @Entity(name = "CLIENTE")
 public class Cliente implements Serializable{
 
@@ -40,7 +46,7 @@ public class Cliente implements Serializable{
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "UUID")
 	private UUID id;
 
 	private String nomeCompleto;
@@ -50,7 +56,7 @@ public class Cliente implements Serializable{
 
 	private Date dataNascimento;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	private Cidade cidade;
 	
 	@Transient

@@ -17,6 +17,10 @@ import br.com.compasso.enums.EstadoEnum;
  * @author franklin.roza
  *
  */
+@org.hibernate.annotations.GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
+)
 @Entity(name = "CIDADE")
 public class Cidade implements Serializable {
 
@@ -35,7 +39,7 @@ public class Cidade implements Serializable {
 
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(generator = "UUID")
     private UUID id;
 	
 	private String nome;

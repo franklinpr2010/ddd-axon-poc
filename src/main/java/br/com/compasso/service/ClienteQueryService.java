@@ -9,8 +9,8 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.stereotype.Service;
 
 import br.com.compasso.entity.Cliente;
-import br.com.compasso.query.BuscarCidadePorNomeQuery;
 import br.com.compasso.query.BuscarClientePorIdQuery;
+import br.com.compasso.query.BuscarClientePorNomeQuery;
 
 @Service
 public class ClienteQueryService {
@@ -32,7 +32,7 @@ public class ClienteQueryService {
     
     public CompletableFuture<Cliente> findByNome(String nome) {
         return this.queryGateway.query(
-                new BuscarCidadePorNomeQuery(nome),
+                new BuscarClientePorNomeQuery(nome),
                 ResponseTypes.instanceOf(Cliente.class)
         );
     }
