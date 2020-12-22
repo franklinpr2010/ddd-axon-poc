@@ -11,17 +11,14 @@ import org.springframework.stereotype.Service;
 import br.com.compasso.entity.Cliente;
 import br.com.compasso.query.BuscarClientePorIdQuery;
 import br.com.compasso.query.BuscarClientePorNomeQuery;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class ClienteQueryService {
 	
 	private QueryGateway queryGateway;
     private EventStore eventStore;
-
-	public ClienteQueryService(QueryGateway queryGateway, EventStore eventStore) {
-		this.queryGateway = queryGateway;
-		this.eventStore = eventStore;
-	}
 	
     public CompletableFuture<Cliente> findById(UUID clienteId) {
         return this.queryGateway.query(

@@ -49,7 +49,6 @@ public class ClienteAggregate implements Serializable{
 	private Cidade cidade;
 	
 	private Integer idade;
-	
 
 	@CommandHandler
 	public ClienteAggregate(CriarClienteCommand command) {
@@ -59,14 +58,15 @@ public class ClienteAggregate implements Serializable{
 		                    command.getNomeCompleto(),
 		                    command.getSexo(),
 		                    command.getDataNascimento(),
-		                    command.getCidade()
+		                    command.getCidade(),
+		                    null
 		            )
 		    );
 	}
 	
 	@EventSourcingHandler
 	public void on(ClienteCriadoEvent event) {
-		this.id = event.getId();
+		this.setId(event.getId());
 		this.nomeCompleto = event.getNomeCompleto();
 		this.sexo = event.getSexo();
 		this.dataNascimento = event.getDataNascimento();
@@ -75,20 +75,24 @@ public class ClienteAggregate implements Serializable{
 	
 	@CommandHandler
 	public ClienteAggregate(AtualizarClienteCommand command) {
+		this.setId(command.getId());
 		 AggregateLifecycle.apply(
-		            new ClienteCriadoEvent(
+		            new ClienteAtualizadoEvent(
 		                    command.getId(),
 		                    command.getNomeCompleto(),
 		                    command.getSexo(),
 		                    command.getDataNascimento(),
-		                    command.getCidade()
+		                    command.getCidade(),
+		                    command.getIdAtual(),
+		                    null
+		                    
 		            )
 		    );
 	}
 	
 	@EventSourcingHandler
 	public void on(ClienteAtualizadoEvent event) {
-		this.id = event.getId();
+		this.setId(event.getId());
 		this.nomeCompleto = event.getNomeCompleto();
 		this.sexo = event.getSexo();
 		this.dataNascimento = event.getDataNascimento();
@@ -96,9 +100,9 @@ public class ClienteAggregate implements Serializable{
 	}
 	
 	@CommandHandler
-	public ClienteAggregate(RemoverClienteCommand command) {
+	public  ClienteAggregate(RemoverClienteCommand command) {
 		 AggregateLifecycle.apply(
-		            new RemoverClienteCommand(
+		            new ClienteRemovidoEvent(
 		                    command.getId()
 		            )
 		    );
@@ -106,17 +110,10 @@ public class ClienteAggregate implements Serializable{
 	
 	@EventSourcingHandler
 	public void on(ClienteRemovidoEvent event) {
-		this.id = event.getId();
+		this.setId(event.getId());
 	}
 
 	
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
 
 	public String getNomeCompleto() {
 		return nomeCompleto;
@@ -156,6 +153,10 @@ public class ClienteAggregate implements Serializable{
 
 	public void setIdade(Integer idade) {
 		this.idade = idade;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
     
 }

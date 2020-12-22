@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.compasso.entity.Cliente;
+import br.com.compasso.service.CidadeQueryService;
 import br.com.compasso.service.ClienteService;
 import br.com.compasso.viewmodel.ClienteViewModel;
 import io.swagger.annotations.Api;
+import lombok.AllArgsConstructor;
 
 /**
  * Classes de controller ClienteController
@@ -27,13 +29,10 @@ import io.swagger.annotations.Api;
  */
 @RestController
 @Api(value = "Api da cliente", description = "Api da cliente")
+@AllArgsConstructor
 public class ClienteController {
 	
 	private ClienteService clienteService;
-
-	public ClienteController(ClienteService clienteService) {
-	    this.clienteService = clienteService;
-	}
 	
 	/**
 	 * Metodo que vai salvar o cliente
@@ -64,7 +63,7 @@ public class ClienteController {
   	 * @param clienteViewModel
   	 * @return
   	 */
-    @DeleteMapping(value = "/cidade/{cidadeId}")
+    @DeleteMapping(value = "/cliente")
     public CompletableFuture<Cliente> removerCidade(@RequestBody ClienteViewModel clienteViewModel) {
         return this.clienteService.remover(clienteViewModel);
     }

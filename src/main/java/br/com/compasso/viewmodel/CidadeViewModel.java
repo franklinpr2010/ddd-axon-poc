@@ -1,13 +1,22 @@
 package br.com.compasso.viewmodel;
 
+import java.util.Date;
 import java.util.UUID;
 
+import br.com.compasso.entity.Cidade;
 import br.com.compasso.enums.EstadoEnum;
+import br.com.compasso.enums.SexoEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CidadeViewModel {
 
-	public CidadeViewModel() {
-	}
 	
     private UUID id;
 	
@@ -15,28 +24,6 @@ public class CidadeViewModel {
 
 	private EstadoEnum estado;
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public EstadoEnum getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoEnum estado) {
-		this.estado = estado;
-	}
+	
 
 }

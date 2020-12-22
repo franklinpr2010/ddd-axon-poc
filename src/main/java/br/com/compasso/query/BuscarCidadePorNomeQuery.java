@@ -1,28 +1,15 @@
 package br.com.compasso.query;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BuscarCidadePorNomeQuery {
 	
 	private String nome;
 
-	public BuscarCidadePorNomeQuery(String nome) {
-		this.nome = nome;
-	}
 	
-	public BuscarCidadePorNomeQuery() {
-		
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-
-	
-
-
-
 }

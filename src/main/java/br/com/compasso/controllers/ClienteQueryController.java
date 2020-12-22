@@ -15,6 +15,7 @@ import br.com.compasso.entity.Cliente;
 import br.com.compasso.repositories.ClienteRepository;
 import br.com.compasso.service.CidadeQueryService;
 import br.com.compasso.service.ClienteQueryService;
+import lombok.AllArgsConstructor;
 
 /**
  * Classes de controller ClienteController
@@ -22,23 +23,22 @@ import br.com.compasso.service.ClienteQueryService;
  *
  */
 @RestController
+@AllArgsConstructor
 public class ClienteQueryController {
 	
 	private ClienteQueryService clienteService;
-
-	ClienteQueryController(ClienteQueryService clienteService) {
-	    this.clienteService = clienteService;
-	}
 	
 	
 	@GetMapping("cliente/nome/{nome}")
     public CompletableFuture<Cliente> findByNome(@PathVariable("nome") String nome) {
-        return this.clienteService.findByNome(nome);
+		CompletableFuture<Cliente> cliente =  this.clienteService.findByNome(nome);
+		return cliente;
     }
 	
 	@GetMapping("cliente/{id}")
     public CompletableFuture<Cliente> findById(@PathVariable("id") String id) {
-        return this.clienteService.findById(UUID.fromString(id));
+		CompletableFuture<Cliente> cliente = this.clienteService.findById(UUID.fromString(id));
+		return cliente;
     }
 
 }

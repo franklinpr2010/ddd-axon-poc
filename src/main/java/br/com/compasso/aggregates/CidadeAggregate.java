@@ -56,31 +56,7 @@ public class CidadeAggregate implements Serializable{
 		this.nome = event.getNome();
 		this.estado = event.getEstado();
 	}
-	
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public EstadoEnum getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoEnum estado) {
-		this.estado = estado;
-	}
 
     
 }

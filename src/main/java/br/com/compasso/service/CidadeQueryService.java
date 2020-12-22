@@ -13,17 +13,16 @@ import br.com.compasso.enums.EstadoEnum;
 import br.com.compasso.query.BuscarCidadePorEstadoQuery;
 import br.com.compasso.query.BuscarCidadePorIdQuery;
 import br.com.compasso.query.BuscarCidadePorNomeQuery;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class CidadeQueryService {
 
 	private QueryGateway queryGateway;
     private EventStore eventStore;
 
-	public CidadeQueryService(QueryGateway queryGateway, EventStore eventStore) {
-		this.queryGateway = queryGateway;
-		this.eventStore = eventStore;
-	}
 	
     public CompletableFuture<Cidade> findById(UUID cidadeId) {
         return this.queryGateway.query(

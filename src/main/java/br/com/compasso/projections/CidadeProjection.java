@@ -13,15 +13,15 @@ import br.com.compasso.exceptions.EntityNotFoundException;
 import br.com.compasso.query.BuscarCidadePorEstadoQuery;
 import br.com.compasso.query.BuscarCidadePorNomeQuery;
 import br.com.compasso.repositories.CidadeRepository;
+import lombok.AllArgsConstructor;
+
 
 @Component
+@AllArgsConstructor
 public class CidadeProjection {
 
 	private CidadeRepository repository;
 	
-	public CidadeProjection(CidadeRepository repository) {
-		this.repository = repository;
-	}
 	
 	/**
 	 * Cadastrar cidade
@@ -32,9 +32,14 @@ public class CidadeProjection {
 		Cidade cidade = new Cidade(event.getId(),
 		event.getNome(),
 		event.getEstado());
-		Optional<Cidade> cid = repository.findByNomeAllIgnoreCase(event.getNome());
-		if(cid.isPresent()) {
+		Cidade nomeCidade = repository.findByNomeAllIgnoreCase(event.getNome()).orElse(null);
+		Cidade estadoCidade = repository.findByNomeAllIgnoreCase(event.getNome()).orElse(null);
+		
+		if(nomeCidade != null) {
 			throw new DuplicationAttributeException("nome", event.getNome());
+		}
+		if(estadoCidade != null) {
+			throw new DuplicationAttributeException("estado", event.getEstado().getNome());
 		}
 		this.repository.save(cidade);
 	}
@@ -61,9 +66,9 @@ public class CidadeProjection {
 	 */
 	@QueryHandler
 	public Cidade handle(BuscarCidadePorEstadoQuery query) throws EntityNotFoundException {
-		Optional<Cidade> cidade = this.repository.findByEstado(query.getEstadoEnum());
-		if(cidade.isPresent()) {
-		   return cidade.get();
+		Cidade cidade = this.repository.findByEstado(query.getEstadoEnum()).orElse(null);
+		if(cidade != null) {
+		   return cidade;
 	   } else {
 		   throw new EntityNotFoundException("estado", query.getEstadoEnum().getNome());
 	   }

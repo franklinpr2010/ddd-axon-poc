@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.compasso.enums.EstadoEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Entidade cidade
@@ -21,21 +23,13 @@ import br.com.compasso.enums.EstadoEnum;
         name = "UUID",
         strategy = "org.hibernate.id.UUIDGenerator"
 )
-@Entity(name = "CIDADE")
-public class Cidade implements Serializable {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "COMPASSO_CIDADE")
+public class Cidade {
 
 	private static final long serialVersionUID = -1903052243314924034L;
-
-
-	public Cidade() {
-		
-	}
-	
-	public Cidade(UUID id, String nome, EstadoEnum estado) {
-		this.estado = estado;
-		this.nome = nome;
-		this.id = id;
-	}
 
 	
 	@Id
@@ -48,11 +42,5 @@ public class Cidade implements Serializable {
 	private EstadoEnum estado;
 
 
-	public String getNome() {
-		return nome;
-	}
-
-	public EstadoEnum getEstado() {
-		return estado;
-	}
+	
 }

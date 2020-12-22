@@ -13,15 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class CriarCidadeCommand {
-	
-	public CriarCidadeCommand(UUID id, String nome, EstadoEnum estado) {
-		super();
-		this.setId(id);
-		this.nome = nome;
-		this.estado = estado;
-	}
 	
 	@TargetAggregateIdentifier
     private UUID id;

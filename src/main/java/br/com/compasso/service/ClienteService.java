@@ -6,18 +6,17 @@ import java.util.concurrent.CompletableFuture;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 
+import br.com.compasso.commands.AtualizarClienteCommand;
 import br.com.compasso.commands.CriarClienteCommand;
 import br.com.compasso.commands.RemoverClienteCommand;
 import br.com.compasso.entity.Cliente;
 import br.com.compasso.viewmodel.ClienteViewModel;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class ClienteService {
 	private CommandGateway commandGateway;
-
-	public ClienteService( CommandGateway commandGateway) {
-		this.commandGateway = commandGateway;
-	}
 	
 	/**
 	 * Metodo que vai criar um Cliente
@@ -25,12 +24,12 @@ public class ClienteService {
 	 * @return CompletableFuture<Cliente>
 	 */
 	public CompletableFuture<Cliente> criar(ClienteViewModel clienteViewModel) {
-        return this.commandGateway.send(new CriarClienteCommand(
-                UUID.randomUUID(),
+        return this.commandGateway.sendAndWait(new CriarClienteCommand(
+        		UUID.randomUUID(),
                 clienteViewModel.getNomeCompleto(),
                 clienteViewModel.getSexo(),
                 clienteViewModel.getDataNascimento(),
-                clienteViewModel.getCidade()
+                clienteViewModel.getCidade(), null
         ));
     }
 	
@@ -40,12 +39,12 @@ public class ClienteService {
 	 * @return CompletableFuture<Cliente>
 	 */
 	public CompletableFuture<Cliente> atualizar(UUID clienteID,  ClienteViewModel clienteViewModel) {
-        return this.commandGateway.send(new CriarClienteCommand(
-        		clienteID,
+        return this.commandGateway.send(new AtualizarClienteCommand(
+        		UUID.randomUUID(),
                 clienteViewModel.getNomeCompleto(),
                 clienteViewModel.getSexo(),
                 clienteViewModel.getDataNascimento(),
-                clienteViewModel.getCidade()
+                clienteViewModel.getCidade(), null, clienteID
         ));
     }
 	

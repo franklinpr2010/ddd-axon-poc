@@ -16,12 +16,6 @@ public interface ClienteRepository extends CrudRepository<Cliente, UUID> {
 	 */
 	Optional<Cliente> findByNomeCompletoAllIgnoreCase(String nome);
 	 
-	/**
-	 * Consultar cliente pelo Id
-	 *
-	 * @param id
-	 * @return cliente
-	 */
-	 Optional<Cliente> findById(UUID id);
+
 	
 }

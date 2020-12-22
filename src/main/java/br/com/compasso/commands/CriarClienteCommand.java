@@ -1,41 +1,40 @@
 package br.com.compasso.commands;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import org.axonframework.commandhandling.RoutingKey;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import br.com.compasso.entity.Cidade;
 import br.com.compasso.enums.SexoEnum;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-public class CriarClienteCommand {
-	public CriarClienteCommand(UUID id, String nomeCompleto, SexoEnum sexo, Date dataNascimento, Cidade cidade) {
+
+public class CriarClienteCommand implements Serializable {
+	
+	public CriarClienteCommand() {
+		
+	}
+
+	public CriarClienteCommand(UUID id, String nomeCompleto, SexoEnum sexo, Date dataNascimento, Cidade cidade,
+			Integer idade) {
 		super();
 		this.id = id;
 		this.nomeCompleto = nomeCompleto;
 		this.sexo = sexo;
 		this.dataNascimento = dataNascimento;
 		this.cidade = cidade;
+		this.idade = idade;
 	}
-	
+	private static final long serialVersionUID = 896344489334932669L;
 	@TargetAggregateIdentifier
-	@Getter
 	private UUID id;
 	private String nomeCompleto;
 	private SexoEnum sexo;
 	private Date dataNascimento;
 	private Cidade cidade;
 	private Integer idade;
-	
-	
 	public UUID getId() {
 		return id;
 	}
@@ -72,4 +71,8 @@ public class CriarClienteCommand {
 	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
+
+	
+	
+
 }

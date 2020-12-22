@@ -2,21 +2,18 @@ package br.com.compasso.query;
 
 import java.util.UUID;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BuscarCidadePorIdQuery {
 
-	public BuscarCidadePorIdQuery(UUID cidadeId) {
-		this.cidadeId = cidadeId;
-	}
-	
+
 	private UUID cidadeId;
 	
-	public UUID getCidadeId() {
-		return cidadeId;
-	}
-
-	public void setCidadeId(UUID cidadeId) {
-		this.cidadeId = cidadeId;
-	}
 
 
 

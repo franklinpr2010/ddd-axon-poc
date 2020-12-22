@@ -15,6 +15,7 @@ import br.com.compasso.entity.Cidade;
 import br.com.compasso.service.CidadeService;
 import br.com.compasso.viewmodel.CidadeViewModel;
 import io.swagger.annotations.Api;
+import lombok.AllArgsConstructor;
 
 /**
  * @author franklin.roza
@@ -22,13 +23,11 @@ import io.swagger.annotations.Api;
  */
 @RestController
 @Api(value = "Api do cliente de atualização", description = "Api do cliente")
+@AllArgsConstructor
 public class CidadeController {
 	
 	private CidadeService cidadeService;
 
-	CidadeController(CidadeService cidadeService) {
-	    this.cidadeService = cidadeService;
-	}
 	
 	/**
 	 * Metodo que vai salvar a cidade

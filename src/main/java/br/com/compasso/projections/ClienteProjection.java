@@ -14,14 +14,13 @@ import br.com.compasso.exceptions.DuplicationAttributeException;
 import br.com.compasso.query.BuscarClientePorIdQuery;
 import br.com.compasso.query.BuscarClientePorNomeQuery;
 import br.com.compasso.repositories.ClienteRepository;
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class ClienteProjection {
 	private  ClienteRepository repository;
 	
-	public ClienteProjection(ClienteRepository repository) {
-		this.repository = repository;
-	}
 	
 	/**
 	 * Cadastrar cliente
@@ -33,7 +32,7 @@ public class ClienteProjection {
 		event.getNomeCompleto(),
 		event.getSexo(),
 		event.getDataNascimento(),
-		event.getCidade());
+		event.getCidade(), null);
 		//Verificando se já existe esse cliente
 		Optional<Cliente> cid = repository.findByNomeCompletoAllIgnoreCase(event.getNomeCompleto());
 		if(cid.isPresent()) {
@@ -48,7 +47,7 @@ public class ClienteProjection {
 	 */
 	@EventSourcingHandler
 	public void on(ClienteAtualizadoEvent event) {
-		Cliente cli = this.repository.findById(event.getId()).get();
+		Cliente cli = this.repository.findById(event.getIdAtual()).get();
 
 		//Verificando se já existe esse cliente
 		Optional<Cliente> cid = repository.findByNomeCompletoAllIgnoreCase(event.getNomeCompleto());
@@ -57,7 +56,7 @@ public class ClienteProjection {
 				throw new DuplicationAttributeException("Nome Completo", event.getNomeCompleto());
 			}
 		}
-		cli.atualizar(cli.getNomeCompleto(), cli.getSexo(), cli.getDataNascimento(), cli.getCidade());
+		cli.atualizar(event.getNomeCompleto(), event.getSexo(), event.getDataNascimento(), event.getCidade());
 		this.repository.save(cli);
 	}
 	
@@ -67,7 +66,9 @@ public class ClienteProjection {
 	 */
 	@EventSourcingHandler
 	public void on(ClienteRemovidoEvent event) {
-		this.repository.deleteById(event.getId());
+		//Verificando se já existe esse cliente
+		Optional<Cliente> cid = repository.findById(event.getId());
+		this.repository.delete(cid.get());
 	}
 	
 	/**
